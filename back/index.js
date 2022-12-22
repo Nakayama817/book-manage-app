@@ -16,16 +16,23 @@ app.get('/', (req, res) => {
 });
 
 app.get("/enpo", (req, res) => {
+    const messages = [];
+
     connection.query(
-        'SELECT * FROM users',
+        'SELECT name FROM users',
         (err, results)=>{
             if(err){
                 console.log("illeguler");
                 throw err;
             }
-            res.json({message: results[0].name});
+            results.map((message) => {
+                return(messages.push(message.name))
+            })
+            res.json(
+                messages
+            );
         }
-    )
+    );
 
     
     
