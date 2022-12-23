@@ -11,6 +11,19 @@ const connection = mysql.createConnection({
     database: 'test'
 });
 
+app.use(express.json());
+
+// cors対策
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, PATCH, DELETE, OPTION"
+    );
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    next();
+});
+
 app.get('/', (req, res) => {
     res.send('Hello World!!');
 });
@@ -36,6 +49,22 @@ app.get("/testenpo", (req, res) => {
 
     
     
+});
+
+app.post('/testenpo', (req, res) => {
+    // try{
+    //     return res.json(req.body);
+    // }catch(error){
+    //     return console.error(error);
+    // }
+    
+connection.query(
+        'INSERT INTO users (name) VALUES (?)',
+        [req.body.name],
+        (error, results) => {
+            res.redirect('/testenpo');
+        }
+    );
 });
 
 

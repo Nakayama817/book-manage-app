@@ -12,14 +12,32 @@ function Top() {
         .then((data) => setMessages(data));
     },[]);
 
+    const handleClick = async () =>{
+        await fetch("/testenpo", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({name: "test000"}),
+        })
+    }; 
+
     return (
-        <div className="App">
+        <div>
             <h1>Front End</h1>
     
-            {messages.map((message) => {
-                return(<p>name : {message}</p>)
+            {messages.map((message, index) => {
+                return(<p key={index}>name : {message}</p>);
             })}
             
+            {/* <form onSubmit={handleSubmit}>
+                <textarea />
+                <input type="submit" value="送信'" />
+            </form> */}
+
+            <button onClick={handleClick}>post</button>
+
         </div>
     );
 
