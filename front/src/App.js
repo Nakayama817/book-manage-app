@@ -1,25 +1,33 @@
-import './App.css';
-import React, { useState, useEffect } from 'react';
+
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link} from 'react-router-dom';
+import Top from './components/Top';
+import About from './components/About';
+//import axios from 'axios';
 
 function App() {
 
-  const [messages,setMessages] = useState([]);
-  useEffect(() => {
-    fetch('/enpo')
-    .then((res) => res.json())
-    .then((data) => setMessages(data));
-  },[]);
+    return (
+      <div>
+        <BrowserRouter>
+        <ul>
+            <li>
+              <Link to='/'>top</Link>
+            </li>
+            <li>
+              <Link to='/about'>about</Link>
+            </li>
+        </ul>
 
-  return (
-    <div className="App">
-      <h1>Front End</h1>
+        <Routes>
+            <Route path='/' element={<Top/>} />
+            <Route path='/About' element={<About/>} />
+        </Routes>
+        </BrowserRouter>
+        
+      </div>
+    );
+  }
 
-      {messages.map((message) => {
-        return(<p>name : {message}</p>)
-      })}
-      
-    </div>
-  );
-}
 
 export default App;

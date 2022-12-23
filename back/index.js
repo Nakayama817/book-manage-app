@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!!');
 });
 
-app.get("/enpo", (req, res) => {
+app.get("/testenpo", (req, res) => {
     const messages = [];
 
     connection.query(
