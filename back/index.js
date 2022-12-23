@@ -13,7 +13,6 @@ const connection = mysql.createConnection({
 
 app.use(express.json());
 
-// cors対策
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
     res.setHeader(
@@ -58,13 +57,25 @@ app.post('/testenpo', (req, res) => {
     //     return console.error(error);
     // }
     
-connection.query(
+    connection.query(
         'INSERT INTO users (name) VALUES (?)',
         [req.body.name],
         (error, results) => {
-            res.redirect('/testenpo');
         }
     );
+    res.redirect('/testenpo');
+});
+
+
+app.post('/testenpodel', (req, res) => {
+    
+    connection.query(
+        'DELETE FROM users WHERE name = ?',
+        [req.body.name],
+        (error, results) => {
+        }
+    );
+    res.redirect('/testenpo');
 });
 
 
