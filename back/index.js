@@ -28,21 +28,11 @@ app.get('/', (req, res) => {
 });
 
 app.get("/testenpo", (req, res) => {
-    const messages = [];
 
     connection.query(
-        'SELECT name FROM users',
+        'SELECT * FROM users',
         (err, results)=>{
-            if(err){
-                console.log("illeguler");
-                throw err;
-            }
-            results.map((message) => {
-                return(messages.push(message.name))
-            })
-            res.json(
-                messages
-            );
+            res.send(results)
         }
     );
 
@@ -67,11 +57,11 @@ app.post('/testenpo', (req, res) => {
 });
 
 
-app.post('/testenpodel', (req, res) => {
-    
+app.delete('/testenpodel/:id', (req, res) => {
+    const { id } = req.params;
     connection.query(
-        'DELETE FROM users WHERE name = ?',
-        [req.body.name],
+        'DELETE FROM users WHERE id = ?',
+        id,
         (error, results) => {
         }
     );

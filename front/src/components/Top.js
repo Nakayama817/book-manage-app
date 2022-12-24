@@ -1,31 +1,33 @@
-import React,{useState, /*useEffect*/} from 'react';
-//import axios from 'axios';
+import React,{useState, useEffect} from 'react';
+import axios from 'axios';
 
 function Top() {
 
 
 
-    const [messages,setMessages] = useState([]);
-    const [name,setName] = useState('');
+    const [data,setData] = useState([]);
+    // const [name,setName] = useState('');
+
+
     // useEffect(() => {
     //     fetch('/testenpo')
     //     .then((res) => res.json())
     //     .then((data) => setMessages(data));
     // },[]);
 
-    async function getUser() {
-        const res = await fetch('/testenpo');
-        const data = await res.json();
-        return data;
+    // async function getUser() {
+    //     const res = await fetch('/testenpo');
+    //     const data = await res.json();
+    //     return data;
         
-    }
-    getUser()
-        .then(data => {
-            setMessages(data);
-        })
-        .catch(err => {
-            console.log(err);
-        })
+    // }
+    // getUser()
+    //     .then(data => {
+    //         setMessages(data);
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
 
     // const handleClick = async () =>{
     //     await fetch("/testenpo", {
@@ -38,45 +40,47 @@ function Top() {
     //     })
     // }; 
 
-    const handleNameChange = (e) =>{
-        setName(
-            e.target.value
-        );
-    }
+    // const handleNameChange = (e) =>{
+    //     setName(
+    //         e.target.value
+    //     );
+    // }
 
-    const handleNamedelete = (e) =>{
-        setName(
-            e.target.value
-        );
-    }
+    // const handleNamedelete = (e) =>{
+    //     setName(
+    //         e.target.value
+    //     );
+    // }
 
     
 
-    const handleClick = async (e) =>{
-        e.preventDefault();
-        await fetch("/testenpo", {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({name: name}),
-        });
-        // const refreshPage = ()=>{
-        //     window.location.reload();
-        // }
+    // const handleClick = async (e) =>{
+    //     e.preventDefault();
+    //     await fetch("/testenpo", {
+    //         method: "POST",
+    //         mode: "cors",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({name: name}),
+    //     });
+    //     // const refreshPage = ()=>{
+    //     //     window.location.reload();
+    //     // }
+    // }
+
+
+    const getUser = async () => {
+        const response = await axios.get("/testenpo");
+        setData(response.data);
     }
 
-    const handleDelete = async (e) =>{
-        e.preventDefault();
-        await fetch("/testenpodel", {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({name: name}),
-        });
+    useEffect(() => {
+        getUser();
+    }, []);
+
+    const delUser = (id) =>{
+        axios.delete(`/testenpodel/${id}`)
     }
 
 
@@ -87,22 +91,22 @@ function Top() {
 
             
     
-            {messages.map((message, index) => {
+            {data.map((user, index) => {
                 return(
-                <p key={index}>
-                    name : {message}
-                    <form onSubmit={handleDelete}><input type="submit" value={message} /></form>
+                <p key={user.id}>
+                    name : {user.name}
+                    <button onClick={() => delUser(user.id)}>Delete</button>
                     
                     
                 </p>
                 );
             })}
             
-            <form onSubmit={handleClick}>
+            {/* <form onSubmit={handleClick}>
                 <input value={name} onChange={handleNameChange} />
 
                 <input type="submit" value="送信" />
-            </form>
+            </form> */}
 
             {/* <button onClick={handleClick}>post</button> */}
         </div>
