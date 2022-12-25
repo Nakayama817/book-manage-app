@@ -92,6 +92,9 @@ function Menu() {
                 <li>
                     <Link to='/new'>New</Link>
                 </li>
+                <li>
+                    <Link to='/serch'>Serch</Link>
+                </li>
             </ul>
             <h1>Welcome! {cuserid}</h1>
         </div>

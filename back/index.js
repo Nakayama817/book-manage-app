@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
 const mysql = require('mysql');
+const cheerio = require('cheerio-httpcli');
 // const session = require('express-session');
 
 const cmsql = mysql.createConnection({
@@ -35,6 +36,10 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('Hello World!!');
 });
+
+
+
+
 
 app.get('/testenpo', (req, res) => {
 
@@ -149,6 +154,71 @@ app.post('/ep', (req, res) => {
         }
     );
 });
+
+app.post('/ep/serch', (req,res) => {
+    const {isbn} = req.body;
+        let informations = {
+            publisher: "",
+            title: "",
+            author: "",
+            isbn: ""
+        };
+    cheerio.fetch(`https://www.books.or.jp/book-details/${isbn}`, function (err, $, res, body) {
+        
+        
+    
+    
+        // レスポンスヘッダを参照
+        // console.log(res.headers);
+
+        // HTMLタイトルを表示
+        // console.log($('title').text());
+
+        // リンク一覧を表示
+            
+        let name = [];
+        let title = [];
+        let author = [];
+
+        
+
+        $('p').each(function (idx) {
+            name[idx] = $(this).text();
+        });
+
+        $('p').each(function (idx) {
+            title[idx] = $(this).text();
+        });
+
+        $('p').each(function (idx) {
+            author[idx] = $(this).text();
+        });
+
+        informations = {
+            publisher: name[5].replace(/\s+/g, ""),
+            title: title[7].replace(/\s+/g, ""),
+            author: author[10].replace(/\s+/g, "").replace("著：", ""),
+            isbn: Number(isbn)
+        };
+
+
+        cmsql.query(
+            'INSERT into books (title, author, publisher, isbn) VALUES (?, ?, ?, ?)',
+            [informations.title, informations.author, informations.publisher, isbn],
+            (error, results) => {
+                if(error){
+                    console.log(error);
+                }
+            }
+        );
+        // console.log(informations);
+
+        // console.log(informations);
+        // console.log(name);
+    });
+
+    
+})
 
 
 app.delete('/ep/del/:id', (req, res) => {
