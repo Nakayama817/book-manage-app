@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import axios from 'axios';
 
 function List(){
+    const params = useParams();
     const [datas,setDatas] = useState([]);
 
 
@@ -24,6 +25,8 @@ function List(){
 
     return (
         <div>
+
+            <h1>{params.id}'s Page!!</h1>
 
             <ul>
                 <li>

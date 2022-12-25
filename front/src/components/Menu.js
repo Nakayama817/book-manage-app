@@ -87,7 +87,7 @@ function Menu() {
         <div>
             <ul>
                 <li>
-                    <Link to={'/list/' + cuserid}>List</Link>
+                    <Link to={`/list/${cuserid}`}>List</Link>
                 </li>
                 <li>
                     <Link to='/new'>New</Link>
