@@ -71,7 +71,7 @@ function Top() {
 
 
     const getUser = async () => {
-        const response = await axios.get("/testenpo");
+        const response = await axios.get('/testenpo');
         setData(response.data);
     }
 
@@ -89,7 +89,7 @@ function Top() {
         <div>
             <h1>Front End</h1>
 
-            
+            {console.log(data)}
     
             {data.map((user, index) => {
                 return(

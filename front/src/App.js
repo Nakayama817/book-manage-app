@@ -1,27 +1,23 @@
 
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-import Top from './components/Top';
-import About from './components/About';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import New from './components/new/New';
+import List from './components/index/List';
+import Menu from './components/Menu';
 //import axios from 'axios';
 
 function App() {
 
+
     return (
       <div>
         <BrowserRouter>
-        <ul>
-            <li>
-              <Link to='/'>top</Link>
-            </li>
-            <li>
-              <Link to='/about'>about</Link>
-            </li>
-        </ul>
+        
 
         <Routes>
-            <Route path='/' element={<Top/>} />
-            <Route path='/About' element={<About/>} />
+            <Route path='/' element={<Menu />} />
+            <Route path='/list/:id' element={<List />} />
+            <Route path='/new' element={<New />} />
         </Routes>
         </BrowserRouter>
         

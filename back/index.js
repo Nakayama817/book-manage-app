@@ -2,7 +2,14 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
 const mysql = require('mysql');
+// const session = require('express-session');
 
+const cmsql = mysql.createConnection({
+    host: 'localhost',
+    user: 'manager02',
+    password: 'password',
+    database: 'bookmanage'
+});
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -11,23 +18,25 @@ const connection = mysql.createConnection({
     database: 'test'
 });
 
+
+// app.use(
+//     session({
+//         secret: 'my_secret_key',
+//         resave: false,
+//         saveUninitialized: false,
+//     })
+// )
+
+
 app.use(express.json());
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, PATCH, DELETE, OPTION"
-    );
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    next();
-});
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!!');
 });
 
-app.get("/testenpo", (req, res) => {
+app.get('/testenpo', (req, res) => {
 
     connection.query(
         'SELECT * FROM users',
@@ -67,6 +76,92 @@ app.delete('/testenpodel/:id', (req, res) => {
     );
     res.redirect('/testenpo');
 });
+
+
+
+
+
+
+
+app.get('/ep', (req, res) => {
+
+    cmsql.query(
+        'SELECT * FROM users',
+        (err, results)=>{
+            res.send(results);
+        }
+    );
+
+    
+    
+});
+
+let currentuser = "default";
+
+app.get('/ep/currentuser', (req, res) => {
+
+    // if(req.session.userId === undefined){
+    //     console.log('ログインしていません');
+    // }else{
+    //     const currentuser = ()=>{
+    //         cmsql.query(
+    //             'SELECT * FROM users WHERE id = ?',
+    //             [req.session.userId],
+    //             (error, results)=>{
+    //                 return(results[0]);
+    //             }
+    // //         )
+    // //     }
+    //     res.send(currentuser);
+        
+    // }
+
+    res.send(currentuser);
+
+        
+    
+});
+
+app.post('/ep/currentuser', (req, res) => {
+    // const id = req.body;
+    // cmsql.query(
+    //     'SELECT * FROM users WHERE id = ?',
+    //     id,
+    //     (error, results) => {
+    //         if (results[0] !== null) {
+    //             req.session.userId = results[0].id;
+    //         }
+    //     }
+    // )
+    currentuser = req.body;
+
+    
+});
+
+app.post('/ep', (req, res) => {
+    const {name} = req.body;
+
+    cmsql.query(
+        'INSERT INTO users (name) VALUES (?)',
+        [name],
+        (error, results) => {
+            if(error) console.log(error);
+        }
+    );
+});
+
+
+app.delete('/ep/del/:id', (req, res) => {
+    const { id } = req.params;
+    cmsql.query(
+        'DELETE FROM users WHERE id = ?',
+        id,
+        (error, results) => {
+        }
+    );
+});
+
+
 
 
 app.listen(port, ()=>{
