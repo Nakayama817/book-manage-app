@@ -1,6 +1,6 @@
 
-import React,{useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import React,{useState, /*useEffect*/} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 // import got from 'got'; 
 // import jsdom,{JSDOM} from 'jsdom'; 
@@ -9,13 +9,10 @@ import axios from 'axios';
 function Serch () {
     const params = useParams();
     const [isbn, setIsbn] = useState('');
-    const [id, setId] = useState('');
+    const id = String(params.id);
+    const navigate = useNavigate();
     
-    useEffect(() => {
-        setId(
-            String(params.id)
-        );
-    }, [setId]);
+    
     
 
     const handleNameChange = (e) =>{
@@ -30,9 +27,9 @@ function Serch () {
     const handleClick = (e) =>{
         
         e.preventDefault();
-        axios.post(`/ep/serch`, {isbn, id}).then(() => {
-            setIsbn("");
-        });
+        axios.post(`/ep/serch`, {isbn, id});
+        navigate(`/booklist/${id}`);
+        
     }
 
 
@@ -45,7 +42,7 @@ function Serch () {
                 <input type="submit" value="送信" />
             </form>
         </div>
-    )
+    );
 
 }
 

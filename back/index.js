@@ -226,6 +226,31 @@ app.post('/ep/serch', (req,res) => {
 })
 
 
+app.get('/ep/book/:id', (req, res) => {
+    const {id} = req.params;
+
+    cmsql.query(
+        'SELECT * FROM books WHERE user_id = ?', id,
+        (err, results)=>{
+            res.send(results);
+        }
+    );
+
+    
+    
+});
+
+app.delete('/ep/book/del/:id', (req, res) => {
+    const { id } = req.params;
+    cmsql.query(
+        'DELETE FROM books WHERE id = ?',
+        id,
+        (error, results) => {
+        }
+    );
+});
+
+
 app.delete('/ep/del/:id', (req, res) => {
     const { id } = req.params;
     cmsql.query(

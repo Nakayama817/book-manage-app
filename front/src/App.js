@@ -5,6 +5,7 @@ import New from './components/new/New';
 import List from './components/index/List';
 import Menu from './components/Menu';
 import Serch from './components/serch/Serch'
+import Booklist from './components/index/Booklist'
 //import axios from 'axios';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path='/list/:id' element={<List />} />
             <Route path='/new' element={<New />} />
             <Route path='/serch/:id' element={<Serch />} />
+            <Route path='/booklist/:id' element={<Booklist />} />
         </Routes>
         </BrowserRouter>
         

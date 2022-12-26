@@ -7,7 +7,7 @@ function Menu() {
 
 
     const [userid,setUserid] = useState(0);
-    const [cuserid,setCuserid] = useState(0);
+    const [id,setId] = useState(0);
 
     let menu;
     
@@ -39,7 +39,7 @@ function Menu() {
 
     const handleSubmit = ()=>{
         if(userid !== 0){
-            setCuserid(
+            setId(
                 userid
             );
             // axios.post('/ep/currentuser',{userid});
@@ -48,6 +48,7 @@ function Menu() {
     }
 
     const handleChange = (e)=>{
+        
         setUserid(
             e.target.value
         );
@@ -56,7 +57,7 @@ function Menu() {
     
     
     
-    if(cuserid === 0){
+    if(id === 0){
         menu = (
         <div>    
         <h1>select user</h1>
@@ -87,16 +88,21 @@ function Menu() {
         <div>
             <ul>
                 <li>
-                    <Link to={`/list/${cuserid}`}>List</Link>
+                    <Link to={`/list/${id}`}>List</Link>
                 </li>
                 <li>
                     <Link to='/new'>New</Link>
                 </li>
                 <li>
-                    <Link to={`/serch/${cuserid}`}>Serch</Link>
+                    <Link to={`/serch/${id}`}>Serch</Link>
                 </li>
+                <li>
+                    <Link to={`/booklist/${id}`}>Booklist</Link>
+                </li>
+                
+            
             </ul>
-            <h1>Welcome! {cuserid}</h1>
+            <h1>Welcome! {id}</h1>
         </div>
         );
     }
