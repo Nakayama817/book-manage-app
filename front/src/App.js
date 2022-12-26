@@ -19,7 +19,7 @@ function App() {
             <Route path='/' element={<Menu />} />
             <Route path='/list/:id' element={<List />} />
             <Route path='/new' element={<New />} />
-            <Route path='/serch' element={<Serch />} />
+            <Route path='/serch/:id' element={<Serch />} />
         </Routes>
         </BrowserRouter>
         

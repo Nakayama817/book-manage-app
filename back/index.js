@@ -153,16 +153,20 @@ app.post('/ep', (req, res) => {
             if(error) console.log(error);
         }
     );
+
 });
 
 app.post('/ep/serch', (req,res) => {
-    const {isbn} = req.body;
+    const {isbn, id} = req.body;
+    
         let informations = {
             publisher: "",
             title: "",
             author: "",
-            isbn: ""
+            isbn: "",
+            userId: ""
         };
+    console.log(id);
     cheerio.fetch(`https://www.books.or.jp/book-details/${isbn}`, function (err, $, res, body) {
         
         
@@ -198,13 +202,14 @@ app.post('/ep/serch', (req,res) => {
             publisher: name[5].replace(/\s+/g, ""),
             title: title[7].replace(/\s+/g, ""),
             author: author[10].replace(/\s+/g, "").replace("著：", ""),
-            isbn: Number(isbn)
+            isbn: Number(isbn),
+            userId: id
         };
 
 
         cmsql.query(
-            'INSERT into books (title, author, publisher, isbn) VALUES (?, ?, ?, ?)',
-            [informations.title, informations.author, informations.publisher, isbn],
+            'INSERT into books (title, author, publisher, isbn, user_id) VALUES (?, ?, ?, ?, ?)',
+            [informations.title, informations.author, informations.publisher, isbn, Number(id)],
             (error, results) => {
                 if(error){
                     console.log(error);
@@ -213,7 +218,7 @@ app.post('/ep/serch', (req,res) => {
         );
         // console.log(informations);
 
-        // console.log(informations);
+        console.log(informations);
         // console.log(name);
     });
 

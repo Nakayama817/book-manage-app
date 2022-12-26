@@ -30,9 +30,7 @@ function New(){
             <li>
                 <Link to='/'>Top</Link>
             </li>
-            <li>
-                <Link to='/list'>List</Link>
-            </li>
+            
         </ul>
 
         <form onSubmit={handleClick}>
