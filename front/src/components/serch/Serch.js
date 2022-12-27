@@ -35,7 +35,7 @@ function Serch () {
 
     return(
         <div>
-            <h1>{id}</h1>
+            <h1>{id}'s Page!!</h1>
             <form onSubmit={handleClick}>
                 <input type="text" value={isbn} onChange={handleNameChange} />
 

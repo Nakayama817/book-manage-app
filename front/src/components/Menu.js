@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import './menu.scss';
 
 
 function Menu() {
@@ -73,7 +74,7 @@ function Menu() {
                     );
                 })}
             </select>
-            <input type="submit" />
+            <input type="submit" value="Select" />
         </form>
 
         

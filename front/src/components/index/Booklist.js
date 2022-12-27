@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import {Link, useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import './blist.scss'
 
 function Booklist(){
     const params = useParams();
@@ -29,11 +30,12 @@ function Booklist(){
     return (
         <div>
 
-            <h1>{params.id}'s Bookd!!</h1>
+            
 
             <ul>
+                <li>{params.id}'s Bookd!!</li>
                 <li>
-                    <Link to='/'>Top</Link>
+                    <Link to='/'>Select User</Link>
                 </li>
                 <li>
                     <Link to='/new'>New</Link>
@@ -42,6 +44,7 @@ function Booklist(){
                     <Link to={`/serch/${id}`}>Save New Book!!</Link>
                 </li>
             </ul>
+            <p>Book List</p>
             <table>
                 <tr>
                     <th><i>Title</i></th>
@@ -55,7 +58,7 @@ function Booklist(){
                             <tr key={book.id}>
                                 <td>{book.title}</td> 
                                 <td>{book.author}</td>
-                                <td><button onClick={() => delBook(book.id)} class="btn">Delete</button></td>
+                                <td><button onClick={() => delBook(book.id)}>Delete</button></td>
                             </tr>
                         
                     );
