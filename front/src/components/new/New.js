@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import axios from 'axios';
             
 
 function New(){
 
     const [name,setName] = useState("");
+    const navigate = useNavigate();
 
 
     const handleNameChange = (e) =>{
@@ -16,9 +17,11 @@ function New(){
 
     const handleClick = (e) =>{
         e.preventDefault();
-        axios.post('/ep',{name}).then(()=>{
+        const data = axios.post('/ep',{name}).then(()=>{
             setName("");
         });
+        const id = data.data
+        navigate(`/booklist/${id}`);
     }
 
 

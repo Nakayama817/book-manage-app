@@ -1,6 +1,6 @@
 
 import React,{useState, /*useEffect*/} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useParams, useNavigate, Link} from 'react-router-dom';
 import axios from 'axios';
 // import got from 'got'; 
 // import jsdom,{JSDOM} from 'jsdom'; 
@@ -30,17 +30,30 @@ function Serch () {
         axios.post(`/ep/serch`, {isbn, id});
         navigate(`/booklist/${id}`);
         
+        
     }
 
 
     return(
         <div>
-            <h1>{id}'s Page!!</h1>
+            <ul>
+                <li>{params.id}'s Books!!</li>
+                <li>
+                    <Link to='/'>Select User</Link>
+                </li>
+                <li>
+                    <Link to={`/booklist/${id}`}>Booklist</Link>
+                </li>
+            </ul>
+            
+            <h2>Enter ISBN code</h2>
             <form onSubmit={handleClick}>
                 <input type="text" value={isbn} onChange={handleNameChange} />
 
                 <input type="submit" value="送信" />
             </form>
+
+            
         </div>
     );
 

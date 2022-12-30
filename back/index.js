@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 9781;
 const mysql = require('mysql');
 const cheerio = require('cheerio-httpcli');
 // const session = require('express-session');
@@ -151,6 +151,17 @@ app.post('/ep', (req, res) => {
         [name],
         (error, results) => {
             if(error) console.log(error);
+
+        }
+    );
+    cmsql.query(
+        'SELECT id users WHERE name = ?',
+        [name],
+        (error, results) => {
+            if(error) console.log(error);
+            res.send(results[0]);
+            console.log(results[0]);
+
         }
     );
 

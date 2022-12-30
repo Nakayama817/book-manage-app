@@ -61,6 +61,11 @@ function Menu() {
     if(id === 0){
         menu = (
         <div>    
+
+        <li>
+            <Link to='/new'>New</Link>
+        </li>
+        
         <h1>select user</h1>
 
         <form onSubmit={handleSubmit}>
@@ -88,9 +93,7 @@ function Menu() {
         menu = (
         <div>
             <ul>
-                <li>
-                    <Link to={`/list/${id}`}>List</Link>
-                </li>
+                
                 <li>
                     <Link to='/new'>New</Link>
                 </li>
